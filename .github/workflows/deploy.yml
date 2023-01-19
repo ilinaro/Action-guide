@@ -1,0 +1,20 @@
+
+name: React App in container
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-container:
+    runs-on: self-hosted
+    
+    steps:
+    
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: make build
+    - name: Run the Docker container
+      run: make run
+    - name: Start the Docker container
+      run: make start

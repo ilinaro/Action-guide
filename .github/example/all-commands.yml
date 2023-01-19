@@ -1,0 +1,64 @@
+name: Test React App
+on: 
+  push:
+    branches:
+      - main
+    path-ignore:
+      - '.github/workflows/*'
+env: 
+  NODE_ENV: production
+  GH_SECRET: 123456789
+jobs:
+  test_react_app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get repository code
+        uses: actions/checkout@v3
+      - name: Install dependecies
+      # npm ci - установка из log file
+        run: |
+          ls
+          cd react-test
+          ls
+          npm install 
+      - name: Test react app
+        run: |
+          cd react-test
+          npm run test
+      - name: END
+        run: echo End testings!
+  build_react_app:
+    runs-on: ubuntu-latest
+    # по окончании test_react_app начать работу
+    needs: test_react_app
+    # вывести в отдельную строку env переменные
+    # echo "${{ secrets.DEPLOY }}" - засекречный токен - который нельзя никогда увидеть
+    steps: 
+      - name: Print Env Build
+        run: |
+          echo "${{ env.NODE_ENV }}"
+          echo "${{ secrets.DEPLOY }}"
+      - name: Get repository code
+        uses: actions/checkout@v3
+      - name: Install dependecies
+        run: cd react-test && npm install
+      - name: Build react app
+        run: |
+          cd react-test && npm run build
+          echo Deployment!
+      - name: Upload Artifact
+        uses: actions/checkout@v3
+        with:
+          # нахождение в директории build
+          path: build
+          name: build-new-name
+  deploy:
+    needs: build_react_app
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get build project
+        uses: actions/checkout@v3
+        with: 
+          name: build-new-name
+      - name: Print context
+        run: echo "${{ toJSON }}"
