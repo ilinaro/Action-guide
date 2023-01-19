@@ -89,6 +89,7 @@ $ sudo ./svc.sh status
 name: React App
 
 on:
+  # push - только при отпрвке 
   push:
     branches: [ "main" ]
 # jobs зарезервированая команда, указвает на начало работ
@@ -128,24 +129,24 @@ on:
     branches: [ "main" ]
 
 jobs:
+  # работа в первом действии build
   build:
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
       run: make build
-    - name: Run the Docker container
-      run: make run
-  
+  # работа start запустит контейнер если build успешен.
   start:
+    # needs - создает цепочку зависимостей, при которой будет ожидать, пока не выполнится build. 
     runs-on: self-hosted
     needs: build
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: make build
     - name: Run the Docker container
       run: make run
     - name: Start the Docker container
       run: make start
 ```
+
+![](https://github.com/ilinaro/Action-guide/blob/main/image/run.png)
