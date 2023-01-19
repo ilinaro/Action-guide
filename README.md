@@ -44,7 +44,7 @@ path-ignore:
 
 #### Подготовка проекта
 
-![](https://github.com/ilinaro/Action-guide/main/image/action.png)
+![](https://github.com/ilinaro/Action-guide/blob/main/image/action.png)
 
 1 Выбрать Settings 
 2 Перейти в Runners
@@ -63,7 +63,10 @@ $ RUNNER_ALLOW_RUNASROOT="1" ./run.sh
 ```
 
 После можно вернуться в Runners, Status сервер будет иметь состояние Idle
-![](https://github.com/ilinaro/Action-guide/main/image/runners.png)
+![](https://github.com/ilinaro/Action-guide/blob/main/image/runners.png)
+
+
+
 
 
 Чтобы не останавливать соединение, перейти в action-runner
@@ -74,7 +77,7 @@ $ sudo ./svc.sh start
 $ sudo ./svc.sh status
 ```
 
-![](https://github.com/ilinaro/Action-guide/main/image/svc.png)
+![](https://github.com/ilinaro/Action-guide/blob/main/image/svc.png)
 
 
 
