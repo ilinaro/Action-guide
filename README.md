@@ -137,8 +137,7 @@ jobs:
     - name: Build the Docker image
       run: make build
   # работа start запустит контейнер если build успешен.
-  start:
-    # needs - создает цепочку зависимостей, при которой будет ожидать, пока не выполнится build. 
+  start: 
     runs-on: self-hosted
     needs: build
     steps:
@@ -149,4 +148,6 @@ jobs:
       run: make start
 ```
 
-![](https://github.com/ilinaro/Action-guide/blob/main/image/run.png)
+- needs: создает цепочку зависимостей, при которой будет ожидать, пока не выполнится build.
+
+![](https://github.com/ilinaro/Action-guide/blob/main/image/run_.png)
